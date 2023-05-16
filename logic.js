@@ -1,5 +1,5 @@
 let players = ['x', 'o'];
-let activePlayer = players[0];
+let activePlayer;
 let boardSize = 3;
 let board;
 
@@ -19,6 +19,7 @@ function createNeaBoard(size) {
 
 function startGame() {
     board = createNeaBoard(boardSize);
+    activePlayer = players[0];
     renderBoard(board);
 }
 
@@ -27,7 +28,7 @@ function click(row, column) {
     board[row][column] = activePlayer 
     renderBoard(board);
     if (checkBoard(board)) {
-        showWinner(activePlayer);
+        showWinner(players.indexOf(activePlayer));
     };
     if (activePlayer === 'x') {
         activePlayer = players[1];
