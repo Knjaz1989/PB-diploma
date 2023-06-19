@@ -38,9 +38,19 @@ function click(row, column) {
 }
 
 
+function arrayFilter(array) {
+    if (array.filter(x => x === activePlayer).length === board.length) {
+        return true;
+    }
+    return false;
+}
+
+
 function checkBoard(board) {
+    let diagonalArrayLeft = [];
+    let diagonalArrayRight = [];
     for (let indexRow = 0; indexRow < board.length; indexRow++) {
-        if (board[indexRow].filter(x => x === activePlayer).length === board.length) {
+        if (arrayFilter(board[indexRow])) {
             return true;
         }
         let columnArray = [];
@@ -48,9 +58,14 @@ function checkBoard(board) {
         for (let indexRow = 0; indexRow < board.length; indexRow++) {
             columnArray.push(board[indexRow][indexColumn]);          
         }
-        if (columnArray.filter(x => x === activePlayer).length === board.length) {
+        if (arrayFilter(columnArray)) {
             return true;
         }
-    };
+        diagonalArrayLeft.push(board[indexRow][indexRow])
+        diagonalArrayRight.push(board[board.length - indexRow - 1][indexRow])
+    }
+    if (arrayFilter(diagonalArrayLeft) || arrayFilter(diagonalArrayRight)) {
+        return true;
+    }
     return false;
 }
